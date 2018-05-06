@@ -1,0 +1,9 @@
+
+pkgname='pupil-labs-depends'
+pkgver=1
+pkgrel=1
+pkgdesc="Dependencies of the Pupil Labs software"
+url="https://pupil-labs.com/"
+license=('LGPL3')
+arch=('any')
+depends=('libusb' 'python-numpy' 'python-scipy' 'glfw' 'glew' 'ffmpeg' 'portaudio' 'libjpeg-turbo' 'libuvc-pupil-labs-git' 'python-numexpr' 'cython' 'python-psutil' 'python-pyzmq' 'python-msgpack' 'python-opengl' 'python-pyaudio' 'libuvc-pupil-labs-git' 'python-pyav-pupil-labs-git' 'python-pyndsi-git' 'python-pyuvc-git' 'python-pyglui-git' 'python-pyre-git' 'boost-libs' 'lapack' 'blas' 'cblas' 'suitesparse' 'opencv' 'hdf5' 'eigen' 'ceres-solver' 'gtkglext' 'openmp')

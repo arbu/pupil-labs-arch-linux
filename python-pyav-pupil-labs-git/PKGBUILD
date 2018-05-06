@@ -1,0 +1,30 @@
+
+_name='pyav'
+pkgname="python-${_name}-pupil-labs-git"
+pkgver=r1.811af48
+pkgrel=1
+pkgdesc="Pythonic bindings for FFmpeg modified by Pupil Labs"
+url="https://github.com/pupil-labs/pyav"
+arch=('any')
+license=('GPL')
+depends=('python' 'cython' 'ffmpeg')
+makedepends=('python-setuptools')
+provides=('python-pyav')
+conflicts=('python-pyav')
+source=('git+https://git@github.com/pupil-labs/pyav')
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_name"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$srcdir/$_name"
+  python setup.py doctor build build_ext --inplace
+}
+
+package() {
+  cd "$srcdir/$_name"
+  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}

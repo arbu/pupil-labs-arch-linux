@@ -1,0 +1,30 @@
+
+_name='pyuvc'
+pkgname="python-${_name}-git"
+pkgver=r1.9e82cf5
+pkgrel=1
+pkgdesc="python binding to libuvc"
+url="https://github.com/pupil-labs/pyuvc"
+arch=('any')
+license=('GPL')
+depends=('python' 'libuvc')
+makedepends=('python-setuptools')
+provides=("python-$_name")
+conflicts=("python-$_name")
+source=("git+https://git@github.com/pupil-labs/$_name")
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_name"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$srcdir/$_name"
+  python setup.py build build_ext
+}
+
+package() {
+  cd "$srcdir/$_name"
+  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}

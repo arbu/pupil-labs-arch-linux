@@ -1,0 +1,35 @@
+
+_name='pyglui'
+pkgname="python-${_name}-git"
+pkgver=r610.a23be5c
+pkgrel=1
+pkgdesc="cython powered OpenGL gui that works with glfw"
+url="https://github.com/pupil-labs/pyglui"
+arch=('any')
+license=('GPL')
+depends=('python')
+makedepends=('python-setuptools')
+provides=("python-$_name")
+conflicts=("python-$_name")
+source=("git+https://git@github.com/pupil-labs/$_name")
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_name"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+  cd "$srcdir/$_name"
+  git submodule update --init --recursive
+}
+
+build() {
+  cd "$srcdir/$_name"
+  python setup.py build build_ext
+}
+
+package() {
+  cd "$srcdir/$_name"
+  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}

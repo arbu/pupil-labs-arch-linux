@@ -1,0 +1,30 @@
+
+_name='pyre'
+pkgname="python-${_name}-git"
+pkgver=r1.811af48
+pkgrel=1
+pkgdesc="Python port of Zyre"
+url="https://github.com/zeromq/pyre"
+arch=('any')
+license=('GPL')
+depends=('python' 'python-pyzmq' 'python-ipaddress')
+makedepends=('python-setuptools')
+provides=('python-pyre')
+conflicts=('python-pyre')
+source=('git+https://git@github.com/zeromq/pyre')
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "$srcdir/$_name"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "$srcdir/$_name"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/$_name"
+  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+}
